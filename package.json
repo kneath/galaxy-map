@@ -1,5 +1,9 @@
 {
   "name"    : "galaxy-map-prototype",
   "version" : "0.1.0",
-  "main"    : "app/main.js"
+  "main"    : "app/main.js",
+
+  "dependencies": {
+    "react": "~0.12.0"
+  }
 }
