@@ -32,7 +32,7 @@ var Ellipse = React.createClass({
 
 })
 
-var Orbit = React.createClass({
+var OrbitLine = React.createClass({
 
   propTypes: {
     diameter: React.PropTypes.number.isRequired, // longest diameter
@@ -53,6 +53,44 @@ var Orbit = React.createClass({
                     width={ width } height={ height }
                     stroke="rgba(255,255,255,0.1)" strokeWidth={ 1 }
                     transform={ rotation }  />
+  }
+})
+
+
+var Orbit = React.createClass({
+
+  propTypes: {
+    diameter: React.PropTypes.number.isRequired, // longest diameter
+    angularOffset: React.PropTypes.number.isRequired, // in degrees
+    stars: React.PropTypes.number.isRequired
+  },
+
+  render: function() {
+    var e = Galaxy.edgeEccentricity // eccentricity
+
+    var width = this.props.diameter
+    var a = width/2
+    var height = ((1 - e)/(1 + e)) * width
+    var b = height/2
+    var cx =  250
+    var cy = 250
+
+    var rotation = new Transform().rotate(this.props.angularOffset, cx, cy)
+    var stars = []
+    for(i=0; i<this.props.stars; i++){
+      var radStep = (2*Math.PI) * i/this.props.stars
+      var x = a * Math.cos(radStep) + cx
+      var y = b * Math.sin(radStep) + cy
+      var brightness = Math.random() * (0.8 - 0.1) + 0.1
+      var fillColor = "rgba(255,255,255," + brightness + ")"
+      stars.push(<Circle x={x} y={y} radius={1} fill={ fillColor} />)
+    }
+
+    return (
+      <Group transform={ rotation }>
+        {stars}
+      </Group>
+    )
   }
 })
 
@@ -84,12 +122,12 @@ var GalaxyMap = React.createClass({
     var orbits = []
     for(var i=0; i<numOrbits; i++) {
       var diameter = minDiameter + (maxDiameter - minDiameter) * (i/numOrbits)
-      orbits.push(<Orbit key={i} diameter={ diameter } angularOffset={ rotation * (i/numOrbits) } />)
+      orbits.push(<Orbit key={i} stars={ Math.random() * (300 - 50) + 50 } diameter={ diameter } angularOffset={ rotation * (i/numOrbits) } />)
     }
 
     return (
       <Surface width={ 500 } height={ 500 } className="galaxy-container">
-        <Circle x={ 250 } y={ 250 } radius={ 2 } fill="#ffffff" />
+        <Circle x={ 250 } y={ 250 } radius={ 4 } fill="#ffffff" />
         { orbits }
       </Surface>
     )
