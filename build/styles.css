@@ -9,4 +9,16 @@ body {
 * {
   box-sizing: border-box; }
 
+body {
+  background: #000; }
+
+#layout-container {
+  text-align: center; }
+
+.galaxy-container {
+  width: 500px;
+  margin: 35px auto;
+  background: #111;
+  border-radius: 5px; }
+
 /*# sourceMappingURL=styles.css.map */
