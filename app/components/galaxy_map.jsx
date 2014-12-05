@@ -40,7 +40,7 @@ var Orbit = React.createClass({
   },
 
   render: function() {
-    var e = 0.2 // eccentricity
+    var e = Galaxy.edgeEccentricity // eccentricity
 
     var width = this.props.diameter
     var height = ((1 - e)/(1 + e)) * width
@@ -59,25 +59,27 @@ var Orbit = React.createClass({
 var Galaxy = {
   starCount: 5000,
 
-  outerRadius: 13000,
-  coreRadius: 4000,
+  outerRadius: 100,
+  coreRadius: 10,
 
   angularOffset: 0.0004,
   coreEccentricity: 0.9,
-  edgeEccentricity: 0.9,
+  edgeEccentricity: 0.3,
 
   coreVelocity: 200,
-  edgeVelocity: 300
+  edgeVelocity: 300,
+
+  maxBounds: 450 // max bounds of canvas in pixels
 
 }
 
 var GalaxyMap = React.createClass({
 
   render: function() {
-    var numOrbits = 20
-    var minDiameter = 100
-    var maxDiameter = 400
-    var rotation = 200
+    var numOrbits = 50
+    var minDiameter = Galaxy.coreRadius/100 * Galaxy.maxBounds
+    var maxDiameter = Galaxy.outerRadius/100 * Galaxy.maxBounds
+    var rotation = 360
 
     var orbits = []
     for(var i=0; i<numOrbits; i++) {
