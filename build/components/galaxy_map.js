@@ -51,7 +51,7 @@ var Orbit = React.createClass({displayName: 'Orbit',
 
     return React.createElement(Ellipse, {x: x, y: y, 
                     width: width, height: height, 
-                    stroke: "#dddddd", strokeWidth: 1, 
+                    stroke: "rgba(255,255,255,0.1)", strokeWidth: 1, 
                     transform: rotation })
   }
 })
@@ -84,7 +84,7 @@ var GalaxyMap = React.createClass({displayName: 'GalaxyMap',
     var orbits = []
     for(var i=0; i<numOrbits; i++) {
       var diameter = minDiameter + (maxDiameter - minDiameter) * (i/numOrbits)
-      orbits.push(React.createElement(Orbit, {diameter: diameter, angularOffset:  rotation * (i/numOrbits) }))
+      orbits.push(React.createElement(Orbit, {key: i, diameter: diameter, angularOffset:  rotation * (i/numOrbits) }))
     }
 
     return (
